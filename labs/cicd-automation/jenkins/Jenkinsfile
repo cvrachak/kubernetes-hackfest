@@ -47,7 +47,7 @@ spec:
         withCredentials([azureServicePrincipal('azurecli')]) {
             sh 'az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID'
             sh 'az account set -s $AZURE_SUBSCRIPTION_ID'
-          sh("az acr build -t ${ACRNAME}.${ACRURL}/${ACRPATH}/${appName}:${imageTag} -r ${ACRNAME} ./app/service-tracker-ui")
+          sh("az acr build -t feb20k8sacr.${ACRURL}/${ACRPATH}/${appName}:${imageTag} -r feb20k8sacr ./app/service-tracker-ui")
         }
       }
      }
@@ -58,7 +58,7 @@ spec:
       steps{
         container('helm') {
         // Uses Help to deploy and sets variables for ACR
-          sh("helm upgrade --install service-tracker-ui ./charts/service-tracker-ui --set deploy.imageTag=${imageTag},deploy.acrserver=${ACRNAME}.${ACRURL}")
+          sh("helm upgrade --install service-tracker-ui ./charts/service-tracker-ui --set deploy.imageTag=${imageTag},deploy.acrserver=feb20k8sacr.${ACRURL} ")
           //sh("helm upgrade --install service-tracker-ui ./charts/service-tracker-ui")
           //sh("echo http://`kubectl get service/${feSvcName} -o jsonpath='{.status.loadBalancer.ingress[0].ip}'` > ${feSvcName}")
         }
