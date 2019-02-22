@@ -2,6 +2,7 @@ const { events, Job, Group } = require('brigadier')
 
 events.on("push", (brigadeEvent, project) => {
 
+
     // setup variables
     var acrServer = project.secrets.acrServer
     var acrName = project.secrets.acrName
